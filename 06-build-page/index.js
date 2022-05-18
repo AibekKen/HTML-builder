@@ -22,7 +22,6 @@ async function creatHtml() {
           readComponent.on('data', (chunk) => dataComponent += chunk);
           readComponent.on('end', () => {
             dataTemplate = dataTemplate.replace(`{{${baseName}}}`, dataComponent);
-            console.log(component);
             if (i === components.length - 1) {
               writeIndex.write(dataTemplate);
             }
@@ -48,6 +47,7 @@ function bundleStyles() {
     });
   });
 }
+
 bundleStyles();
 
 const files = path.join(__dirname, 'assets');
@@ -73,7 +73,7 @@ async function copyDir(dir1, dir2) {
       });
     });
   }
-  await cleanAll(dir2);
+ // cleanAll(dir2);
 
   fs.readdir(dir1, { withFileTypes: true }, (err, files) => {
     if (err) throw err;
