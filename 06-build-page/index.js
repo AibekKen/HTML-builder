@@ -52,6 +52,7 @@ bundleStyles();
 
 const files = path.join(__dirname, 'assets');
 const filesCopy = path.join(__dirname, 'project-dist', 'assets');
+
 async function copyDir(dir1, dir2) {
   await fsPromises.mkdir(dir2, { recursive: true });
   function cleanAll(dir) {
@@ -64,16 +65,12 @@ async function copyDir(dir1, dir2) {
           });
         }
         else {
-          fs.rmdir(path.join(dir, darnet.name), { recursive: true }, (err) => {
-            if (err) {
-              cleanAll(path.join(dir, darnet.name));
-            }
-          });
+          cleanAll(path.join(dir, darnet.name));
         }
       });
     });
   }
- // cleanAll(dir2);
+  cleanAll(dir2);
 
   fs.readdir(dir1, { withFileTypes: true }, (err, files) => {
     if (err) throw err;
@@ -85,6 +82,10 @@ async function copyDir(dir1, dir2) {
       }
     });
   });
+
+
+
+
 }
 
 copyDir(files, filesCopy);
