@@ -42,7 +42,7 @@ function bundleStyles() {
     files.forEach(file => {
       if (path.extname(file) === '.css') {
         const readStyle = fs.createReadStream(path.join(stylesDir, file), 'utf-8');
-        readStyle.on('data', chunk => writeStyle.write(chunk));
+        readStyle.on('data', chunk => writeStyle.write(`${chunk}\n`));
       }
     });
   });
@@ -82,10 +82,6 @@ async function copyDir(dir1, dir2) {
       }
     });
   });
-
-
-
-
 }
 
 copyDir(files, filesCopy);

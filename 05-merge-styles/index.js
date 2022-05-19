@@ -9,7 +9,7 @@ fs.readdir(stylesDir, (err, files) => {
   files.forEach(file => {
     if (path.extname(file) === '.css') {
       const readStyle = fs.createReadStream(path.join(stylesDir, file), 'utf-8');
-      readStyle.on('data', chunk => writeBundle.write(chunk));
+      readStyle.on('data', chunk => writeBundle.write(chunk+'\n'));
     }
   });
 });
