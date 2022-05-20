@@ -21,8 +21,11 @@ async function creatHtml() {
           let dataComponent = '';
           readComponent.on('data', (chunk) => dataComponent += chunk);
           readComponent.on('end', () => {
-            dataTemplate = dataTemplate.replace(`{{${baseName}}}`, dataComponent);
+            let regexComp = new RegExp(`{{${baseName}}}`, 'g');
+            dataTemplate = dataTemplate.replace(regexComp, dataComponent);
             if (i === components.length - 1) {
+              let regexTemp = /{{\w+}}/gm;
+              dataTemplate = dataTemplate.replace(regexTemp, '');
               writeIndex.write(dataTemplate);
             }
           });
